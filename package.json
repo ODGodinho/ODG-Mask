@@ -2,7 +2,7 @@
   "name": "odg-mask",
   "version": "0.1.0",
   "description": "Pacote para formatar string e inputs",
-  "private": true,
+  "private": false,
   "main": "src/index.js",
   "scripts": {
     "commitlint": "nodemon --exec commitlint",
