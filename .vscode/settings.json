@@ -1,0 +1,75 @@
+{
+  "eslint.enable": true,
+  "eslint.run": "onSave",
+  "files.eol": "\r\n",
+  "esversion": 6,
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "editor.tabSize": 2,
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [{
+      "text": "DEBUG:",
+      "color": "#FFF",
+      "backgroundColor": "#6900cc",
+    },
+    {
+      "text": "OPTIMIZE:",
+      "color": "#FFF",
+      "backgroundColor": "#00ccff",
+    },
+    {
+      "text": "FIX:",
+      "color": "#FFF",
+      "backgroundColor": "#FF2D00",
+    },
+
+    {
+      "text": "todo:",
+      "color": "#31b4de",
+      "backgroundColor": "",
+    },
+    {
+      "text": "REVIEW:",
+      "color": "#FFF",
+      "backgroundColor": "#05af21",
+    },
+    {
+      "text": "NOTE:",
+      "color": "#FFF",
+      "backgroundColor": "#cc00cc",
+    },
+    {
+      "text": "HACK:",
+      "color": "#fff",
+      "backgroundColor": "#377777",
+      "isWholeLine": true,
+    }
+  ],
+  "better-comments.tags": [{
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "//",
+      "color": "#707070",
+      "strikethrough": true,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    }
+  ],
+}

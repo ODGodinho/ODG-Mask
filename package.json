@@ -1,0 +1,60 @@
+{
+  "name": "odg-mask",
+  "version": "0.0.1",
+  "description": "Pacote para formatar string e inputs",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "commitlint": "nodemon --exec commitlint",
+    "commit": "nodemon --exec git cz -e",
+    "build": "nodemon --exec webpack",
+    "dev": "nodemon --exec webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ODGodinho/ODG-mask.git"
+  },
+  "author": "DragonsGamers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ODGodinho/ODG-mask/issues"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "./node_modules/.bin/commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "public/"
+    ]
+  },
+  "homepage": "https://github.com/ODGodinho/ODG-mask#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/config-lerna-scopes": "^8.3.4",
+    "balanced-match": "^1.0.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import-helpers": "^1.0.2",
+    "nodemon": "^2.0.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "maxHeaderWidth": 100,
+      "maxLineWidth": 100,
+      "defaultType": "",
+      "defaultScope": "",
+      "defaultSubject": "",
+      "defaultBody": "",
+      "defaultIssues": ""
+    }
+  }
+}
