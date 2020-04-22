@@ -11,9 +11,9 @@ app.get(
 );
 
 app.get(
-  "/public/index.js",
+  "/dist/index.js",
   (req, res) => {
-    res.sendFile(path.join(`${__dirname}/public/index.js`));
+    res.sendFile(path.join(`${__dirname}/dist/index.js`));
   }
 );
 

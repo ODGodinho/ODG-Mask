@@ -12,7 +12,7 @@ http://odgodinho.github.io/ODGMask
 ### NPM
 `npm i odg-mask`
 ### Brownser
-`<script src="public/ODGMask.js">`
+`<script src="dist/ODGMask.js">`
 
 You can import the library or use the global element defined in window
 
