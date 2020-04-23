@@ -3,21 +3,21 @@ Node plugin para mascaras de texto
 
 # Documentation, Demo & Examples
 
-http://odgodinho.github.io/ODGMask
+http://odgodinho.github.io/ODG-Mask
 
 
 ## Install it via Package Managers
 ### Yarn
-`yarn add odg-mask`
+`yarn add @odg/odg-mask`
 ### NPM
-`npm i odg-mask`
+`npm i @odg/odg-mask`
 ### Brownser
 `<script src="dist/ODGMask.js">`
 
 You can import the library or use the global element defined in window
 
 ```javascript
-import ODGMask from 'odg-mask'
+import ODGMask from '@odg/odg-mask'
 ODGMask(
   'value', // value
   'mask', // mask

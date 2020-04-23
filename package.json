@@ -1,6 +1,6 @@
 {
   "name": "@odg/odg-mask",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Pacote para formatar string e inputs e cria uma mascara",
   "private": false,
   "main": "src/index.js",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ODGodinho/ODG-mask.git"
+    "url": "git+https://github.com/ODGodinho/ODG-Mask.git"
   },
   "author": "DragonsGamers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ODGodinho/ODG-mask/issues"
+    "url": "https://github.com/ODGodinho/ODG-Mask/issues"
   },
   "husky": {
     "hooks": {
@@ -29,7 +29,7 @@
       "public/"
     ]
   },
-  "homepage": "https://github.com/ODGodinho/ODG-mask#readme",
+  "homepage": "https://github.com/ODGodinho/ODG-Mask#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
