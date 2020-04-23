@@ -1,6 +1,6 @@
 {
   "name": "@odg/odg-mask",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Pacote para formatar string e inputs e cria uma mascara",
   "private": false,
   "main": "src/index.js",
