@@ -55,7 +55,7 @@
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-style": "error",
-        "function-call-argument-newline": "error",
+        "function-call-argument-newline": ["error", "consistent"],
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "global-require": "error",
@@ -110,7 +110,9 @@
         "no-extend-native": "error",
         "no-extra-bind": "error",
         "no-extra-label": "error",
-        "no-extra-parens": ["error", "all", { "nestedBinaryExpressions": false }] ,
+        "no-extra-parens": ["error", "all", {
+            "nestedBinaryExpressions": false
+        }],
         "no-floating-decimal": "error",
         "no-implicit-coercion": "error",
         "no-implicit-globals": "error",
@@ -124,7 +126,9 @@
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": ["off", { "ignoreArrayIndexes": true }],
+        "no-magic-numbers": ["off", {
+            "ignoreArrayIndexes": true
+        }],
         "no-mixed-operators": "error",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
@@ -184,7 +188,11 @@
         "no-warning-comments": "error",
         "no-whitespace-before-property": "error",
         "nonblock-statement-body-position": "error",
-        "object-curly-newline": ["error", { "multiline": true, "minProperties": 3, "consistent": true }],
+        "object-curly-newline": ["error", {
+            "multiline": true,
+            "minProperties": 3,
+            "consistent": true
+        }],
         "object-property-newline": "error",
         "one-var": "off",
         "one-var-declaration-per-line": "error",
@@ -226,7 +234,9 @@
         "space-infix-ops": "error",
         "space-unary-ops": "error",
         "spaced-comment": "error",
-        "object-curly-spacing": ["error", "always", { "objectsInObjects": true }],
+        "object-curly-spacing": ["error", "always", {
+            "objectsInObjects": true
+        }],
         "strict": "error",
         "switch-colon-spacing": "error",
         "symbol-description": "error",
@@ -236,7 +246,7 @@
             "error",
             "never"
         ],
-        "valid-jsdoc": "error",
+        "valid-jsdoc": ["off"],
         "vars-on-top": "error",
         "wrap-iife": "error",
         "wrap-regex": "error",

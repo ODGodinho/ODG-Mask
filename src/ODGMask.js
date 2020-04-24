@@ -1,6 +1,12 @@
 import { isArray } from "./helper";
 import tokens from "./tokens";
 
+/**
+ * @param {String} value
+ * @param {String|Array} mask
+ * @param {import('../types/ODGMask').ODGMasksOptions} options
+ * @returns {import('../types/ODGMask').ODGMask}
+ */
 const ODGMask = function (value, mask, options = {
   tokens: null,
   currentPosition: null
@@ -9,6 +15,7 @@ const ODGMask = function (value, mask, options = {
   if (isArray(mask)) {
     let $aMask = "";
     const masked = [];
+    let useMask = null;
 
     for (let i = 0; i < mask.length; i++) {
       $aMask = mask[ i ];
@@ -17,12 +24,18 @@ const ODGMask = function (value, mask, options = {
         $aMask,
         options
       );
-      if (masked[ i ].valid) {
+      if (useMask) {
+        useMask = masked[ i ].unmasked.length > useMask.unmasked.length ? masked[ i ] : useMask;
+      } else {
+        useMask = masked[ i ];
+      }
+
+      if (options.firstMatch && masked[ i ].valid) {
         return masked[ i ];
       }
     }
 
-    return masked[ 0 ];
+    return useMask;
   }
 
   let indexMask = 0;
