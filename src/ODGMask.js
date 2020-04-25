@@ -11,9 +11,9 @@ const ODGMask = function (value, mask, options = {
   tokens: null,
   el: null,
   currentPosition: null,
-},) {
+}) {
 
-  if (isArray(mask,)) {
+  if (isArray(mask)) {
     let $aMask = "";
     const masked = [];
     let useMask = null;
@@ -23,7 +23,7 @@ const ODGMask = function (value, mask, options = {
       masked[ i ] = ODGMask(
         value,
         $aMask,
-        options,
+        options
       );
       if (useMask) {
         useMask = masked[ i ].unmasked.length > useMask.unmasked.length ? masked[ i ] : useMask;
@@ -80,21 +80,21 @@ const ODGMask = function (value, mask, options = {
       cToken.nextElement = false;
     }
 
-    isCToken = Boolean(cToken,);
+    isCToken = Boolean(cToken);
 
     cToken = cToken ? cToken : {};
     pToken = pToken ? pToken : {};
 
-    noMask = Boolean(cToken.noMask,);
+    noMask = Boolean(cToken.noMask);
     isNext = cToken ? cToken.nextElement : false;
 
     let valueMatch = false;
 
     if (cToken.pattern && !isNext && !noMask && cValue) {
-      valueMatch = cToken.pattern.test(cValue,);
+      valueMatch = cToken.pattern.test(cValue);
 
       if (valueMatch) {
-        const CVALUE_TRANSFORM = cToken.transform ? cToken.transform(cValue,) : cValue;
+        const CVALUE_TRANSFORM = cToken.transform ? cToken.transform(cValue) : cValue;
 
         result += CVALUE_TRANSFORM;
         resultNoMask += CVALUE_TRANSFORM;
@@ -138,8 +138,7 @@ const ODGMask = function (value, mask, options = {
     position = el.selectionEnd;
     const digit = el.value[ position - 1 ];
 
-
-    while (position <= result.length && result.charAt(position - 1,) !== digit) {
+    while (position <= result.length && result.charAt(position - 1) !== digit) {
       position++;
     }
   }
