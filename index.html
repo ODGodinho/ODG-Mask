@@ -303,7 +303,7 @@ ODGMask(value, mask, {
         ...ODGMask.defaultTokens,
         <span class="hljs-objectKey">"G"</span>: {
             <span class="hljs-string">pattern</span>: /[a-zA-Z0-9]/u,
-            <span class="hljs-function">transform</span>: <span class="hljs-function">(</span>el<span class="hljs-function">)</span> => String(<span class="hljs-function">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>, // transforms the letter before inserting
+            <span class="hljs-function">transform</span>: <span class="hljs-function">(</span>el<span class="hljs-function">)</span> =&gt; String(<span class="hljs-function">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>, // transforms the letter before inserting
             <span class="hljs-string">optional</span>: true, // is optional?
             <span class="hljs-string">nextElement</span>: true, // should the action be performed on the next element?
             <span class="hljs-string">noMask</span>: true // this element should not be treated as a token
@@ -395,19 +395,19 @@ export default {
   "S": { pattern: /[a-zA-Z]/u },
   "A": {
     <span class="hljs-string">pattern</span>: /[a-zA-Z]/u,
-    <span class="hljs-function">transform</span>: (el) => String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleUpperCase()</span>
+    <span class="hljs-function">transform</span>: (el) =&gt; String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleUpperCase()</span>
   },
   "a": {
     <span class="hljs-string">pattern</span>: /[a-zA-Z]/u,
-    <span class="hljs-function">transform</span>: (el) => String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>
+    <span class="hljs-function">transform</span>: (el) =&gt; String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>
   },
   "Y": {
     <span class="hljs-string">pattern</span>: /[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]/u,
-    <span class="hljs-function">transform</span>: (el) => String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleUpperCase()</span>
+    <span class="hljs-function">transform</span>: (el) =&gt; String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleUpperCase()</span>
   },
   "y": {
     <span class="hljs-string">pattern</span>: /[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]/u,
-    <span class="hljs-function">transform</span>: (el) => String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>
+    <span class="hljs-function">transform</span>: (el) =&gt; String(<span class="hljs-string">el</span>).<span class="hljs-function">toLocaleLowerCase()</span>
   },
   "X": { <span class="hljs-string">pattern</span>: /[a-zA-Z0-9]/u },
   "#": { <span class="hljs-string">pattern</span>: /[a-zA-Z0-9\u00C0-\u024F\u1E00-\u1EFF]/u },
