@@ -33,7 +33,13 @@
         "camelcase": "error",
         "capitalized-comments": "error",
         "class-methods-use-this": "error",
-        "comma-dangle": "error",
+        "comma-dangle": ["error", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "only-multiline",
+            "exports": "only-multiline",
+            "functions": "never"
+        }],
         "comma-spacing": "error",
         "comma-style": [
             "error",

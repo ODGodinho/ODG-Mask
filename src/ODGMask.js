@@ -9,10 +9,11 @@ import tokens from "./tokens";
  */
 const ODGMask = function (value, mask, options = {
   tokens: null,
-  currentPosition: null
-}) {
+  el: null,
+  currentPosition: null,
+},) {
 
-  if (isArray(mask)) {
+  if (isArray(mask,)) {
     let $aMask = "";
     const masked = [];
     let useMask = null;
@@ -22,7 +23,7 @@ const ODGMask = function (value, mask, options = {
       masked[ i ] = ODGMask(
         value,
         $aMask,
-        options
+        options,
       );
       if (useMask) {
         useMask = masked[ i ].unmasked.length > useMask.unmasked.length ? masked[ i ] : useMask;
@@ -74,26 +75,26 @@ const ODGMask = function (value, mask, options = {
     if (pToken && pToken.nextElement) {
       cToken = cToken ? {
         ...cToken,
-        ...pToken
+        ...pToken,
       } : pToken;
       cToken.nextElement = false;
     }
 
-    isCToken = Boolean(cToken);
+    isCToken = Boolean(cToken,);
 
     cToken = cToken ? cToken : {};
     pToken = pToken ? pToken : {};
 
-    noMask = Boolean(cToken.noMask);
+    noMask = Boolean(cToken.noMask,);
     isNext = cToken ? cToken.nextElement : false;
 
     let valueMatch = false;
 
     if (cToken.pattern && !isNext && !noMask && cValue) {
-      valueMatch = cToken.pattern.test(cValue);
+      valueMatch = cToken.pattern.test(cValue,);
 
       if (valueMatch) {
-        const CVALUE_TRANSFORM = cToken.transform ? cToken.transform(cValue) : cValue;
+        const CVALUE_TRANSFORM = cToken.transform ? cToken.transform(cValue,) : cValue;
 
         result += CVALUE_TRANSFORM;
         resultNoMask += CVALUE_TRANSFORM;
@@ -129,12 +130,27 @@ const ODGMask = function (value, mask, options = {
 
   }
 
+  let position = -1;
+
+  if (options.el) {
+    const { el } = options;
+
+    position = el.selectionEnd;
+    const digit = el.value[ position - 1 ];
+
+
+    while (position <= result.length && result.charAt(position - 1,) !== digit) {
+      position++;
+    }
+  }
+
   const size = result.length;
 
   if (this) {
     this.value = result;
     this.valid = indexMask === maskCount && size >= regexMin && size <= regexMax;
     this.unmasked = resultNoMask;
+    this.newPosition = position;
 
     return this;
   }
@@ -142,7 +158,8 @@ const ODGMask = function (value, mask, options = {
   return {
     value: result,
     valid: indexMask === maskCount && size >= regexMin && size <= regexMax,
-    unmasked: resultNoMask
+    unmasked: resultNoMask,
+    newPosition: position,
   };
 
 };

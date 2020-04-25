@@ -24,18 +24,23 @@ import ODGMask from "./ODGMask";
 
       if (!validateEvent(event)) return;
 
+      /** @var {HTMLElement} */
       const el = event.target;
       const mask = el.getAttribute("odg-mask");
 
       const nValue = ODGMask(
         el.value,
-        mask
+        mask,
+        {
+          el: el,
+        }
       );
 
       if (nValue.value !== el.value) {
         el.value = nValue.value;
-        el.selectionStart = nValue.value.length;
-        el.selectionEnd = nValue.value.length;
+
+        el.selectionStart = nValue.newPosition;
+        el.selectionEnd = nValue.newPosition;
       }
     }
   );

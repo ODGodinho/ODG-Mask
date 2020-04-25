@@ -8,5 +8,6 @@ export interface ODGMask {
 export interface ODGMasksOptions {
   tokens?: Array,
   currentPosition?: Number,
-  firstMatch?: Boolean
+  firstMatch?: Boolean,
+  el?: HTMLElement,
 }
