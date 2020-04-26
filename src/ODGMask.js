@@ -132,7 +132,7 @@ const ODGMask = function (value, mask, options = {
 
   let position = -1;
 
-  if (options.el) {
+  if (options.el && options.el.tagName === "INPUT") {
     const { el } = options;
 
     position = el.selectionEnd;
