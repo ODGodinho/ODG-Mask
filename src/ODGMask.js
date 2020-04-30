@@ -9,6 +9,7 @@ import tokens from "./tokens";
  */
 const ODGMask = function (value, mask, options = {
   tokens: null,
+  reverse: null,
   el: null,
   currentPosition: null,
 }) {
@@ -43,11 +44,28 @@ const ODGMask = function (value, mask, options = {
   let indexValue = 0;
 
   const $value = value || "";
-  const $mask = mask || "";
+  const $mask = String(mask) || "";
   const $tokens = options.tokens || ODGMask.defaultTokens || tokens;
   const maskCount = $mask.length;
+
+  const isReverse = Boolean(options.reverse);
+
   let regexMin = 0;
   let regexMax = 0;
+
+  let $check = function () {
+    return indexMask < maskCount;
+  };
+
+  if (isReverse) {
+    indexMask = $mask.length - 1;
+    indexValue = $value.length - 1;
+
+    $check = function () {
+      return indexMask > -1;
+    };
+
+  }
 
   let result = "";
   let resultNoMask = "";
@@ -60,9 +78,10 @@ const ODGMask = function (value, mask, options = {
   let noMask = null;
   let pMask = "";
   let pToken = null;
+  let i = 0;
 
-  while (indexMask < maskCount) {
-
+  while ($check()) {
+    if (i++ >= 200) throw new Error("Infinit looping Mask");
     // Previews tokens
     pMask = $mask[ indexMask - 1 ];
     pToken = $tokens[ pMask ];
@@ -96,8 +115,13 @@ const ODGMask = function (value, mask, options = {
       if (valueMatch) {
         const CVALUE_TRANSFORM = cToken.transform ? cToken.transform(cValue) : cValue;
 
-        result += CVALUE_TRANSFORM;
-        resultNoMask += CVALUE_TRANSFORM;
+        if (isReverse) {
+          result = CVALUE_TRANSFORM + result;
+          resultNoMask = CVALUE_TRANSFORM + resultNoMask;
+        } else {
+          result += CVALUE_TRANSFORM;
+          resultNoMask += CVALUE_TRANSFORM;
+        }
 
         regexMin += cToken.optional ? 0 : 1;
         regexMax += 1;
@@ -112,7 +136,11 @@ const ODGMask = function (value, mask, options = {
       ) {
         regexMin += cToken.optional ? 0 : 1;
         regexMax += 1;
-        if (cValue) result += cMask;
+        if (cValue && isReverse) {
+          result = cMask + result;
+        } else if (cValue && !isReverse) {
+          result += cMask;
+        }
       }
       valueMatch = true;
 
@@ -123,10 +151,20 @@ const ODGMask = function (value, mask, options = {
       (cToken.pattern && !cToken.optional) ||
       (cMask === cValue && (!isCToken || cToken.optional))
     ) {
-      indexValue++;
+      if (isReverse) {
+        indexValue--;
+      } else {
+        indexValue++;
+      }
     }
 
-    if (valueMatch || cToken.optional) indexMask++;
+    if (valueMatch || cToken.optional) {
+      if (isReverse) {
+        indexMask--;
+      } else {
+        indexMask++;
+      }
+    }
 
   }
 
@@ -138,16 +176,30 @@ const ODGMask = function (value, mask, options = {
     position = el.selectionEnd;
     const digit = el.value[ position - 1 ];
 
-    while (position <= result.length && result.charAt(position - 1) !== digit) {
-      position++;
+
+    if (isReverse) {
+
+      if (position === $value.length) {
+        position = result.length;
+      } else {
+        position -= 1;
+      }
+
+    } else {
+
+      while (position <= result.length && result.charAt(position - 1) !== digit) {
+        position++;
+      }
+
     }
+
   }
 
   const size = result.length;
 
   if (this) {
     this.value = result;
-    this.valid = indexMask === maskCount && size >= regexMin && size <= regexMax;
+    this.valid = (indexMask === maskCount || (isReverse && indexMask < 0)) && size >= regexMin && size <= regexMax;
     this.unmasked = resultNoMask;
     this.newPosition = position;
 
@@ -156,7 +208,7 @@ const ODGMask = function (value, mask, options = {
 
   return {
     value: result,
-    valid: indexMask === maskCount && size >= regexMin && size <= regexMax,
+    valid: (indexMask === maskCount || (isReverse && indexMask < 0)) && size >= regexMin && size <= regexMax,
     unmasked: resultNoMask,
     newPosition: position,
   };

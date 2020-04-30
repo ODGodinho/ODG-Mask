@@ -4,6 +4,7 @@ export interface ODGMask {
   valid?: Boolean;
   unmasked?: String;
   newPosition?: Number;
+  reverse?: Boolean;
 }
 
 export interface ODGMasksOptions {
