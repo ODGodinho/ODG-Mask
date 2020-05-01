@@ -46,6 +46,7 @@ const ODGMask = function (value, mask, options = {
   const $value = value || "";
   const $mask = String(mask) || "";
   const $tokens = options.tokens || ODGMask.defaultTokens || tokens;
+
   const maskCount = $mask.length;
 
   const isReverse = Boolean(options.reverse);
@@ -84,11 +85,11 @@ const ODGMask = function (value, mask, options = {
     if (i++ >= 200) throw new Error("Infinit looping Mask");
     // Previews tokens
     pMask = $mask[ indexMask - 1 ];
-    pToken = $tokens[ pMask ];
+    pToken = { ...$tokens[ pMask ] };
 
     // Current token
     cMask = $mask[ indexMask ];
-    cToken = $tokens[ cMask ];
+    cToken = { ...$tokens[ cMask ] };
     cValue = $value[ indexValue ];
 
     if (pToken && pToken.nextElement) {
