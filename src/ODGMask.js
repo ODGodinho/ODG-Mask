@@ -92,6 +92,8 @@ const ODGMask = function (value, mask, options = {
     cToken = { ...$tokens[ cMask ] };
     cValue = $value[ indexValue ];
 
+    isCToken = Object.keys(cToken).length > 0;
+
     if (pToken && pToken.nextElement) {
       cToken = cToken ? {
         ...cToken,
@@ -99,11 +101,6 @@ const ODGMask = function (value, mask, options = {
       } : pToken;
       cToken.nextElement = false;
     }
-
-    isCToken = Boolean(cToken);
-
-    cToken = cToken ? cToken : {};
-    pToken = pToken ? pToken : {};
 
     noMask = Boolean(cToken.noMask);
     isNext = cToken ? cToken.nextElement : false;
@@ -131,7 +128,7 @@ const ODGMask = function (value, mask, options = {
     } else {
 
       if (
-        (!isCToken && !isNext) ||
+        (!isCToken && !isNext && !(cValue !== cMask && cToken.optional)) ||
         (noMask && !isNext) ||
         !cValue
       ) {
@@ -148,7 +145,7 @@ const ODGMask = function (value, mask, options = {
     }
 
     if (
-      (valueMatch && isNext !== true && isCToken) ||
+      (valueMatch && isNext !== true && isCToken && cToken.pattern && !cToken.optional) ||
       (cToken.pattern && !cToken.optional) ||
       (cMask === cValue && (!isCToken || cToken.optional))
     ) {
