@@ -145,7 +145,7 @@ const ODGMask = function (value, mask, options = {
     }
 
     if (
-      (valueMatch && isNext !== true && isCToken && cToken.pattern && !cToken.optional) ||
+      (valueMatch && isNext !== true && isCToken && cToken.pattern) ||
       (cToken.pattern && !cToken.optional) ||
       (cMask === cValue && (!isCToken || cToken.optional))
     ) {
