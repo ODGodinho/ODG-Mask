@@ -70,26 +70,59 @@ const ODGMask = function (value, mask, options = {
 
   let result = "";
   let resultNoMask = "";
+  let resultNoMaskWithNoMask = "";
 
-  let cMask = "";
+  let cMaskToken = "";
   let cToken = null;
   let cValue = "";
   let isCToken = null;
   let isNext = false;
-  let noMask = null;
+  let noMaskToken = null;
   let pMask = "";
   let pToken = null;
-  let i = 0;
+  const i = 0;
+
+  const saveValue = () => {
+    regexMin += cToken.optional ? 0 : 1;
+    regexMax += 1;
+    if (cValue && isReverse) {
+      result = cMaskToken + result;
+      if (cToken.optional || cToken.noMask) {
+        resultNoMaskWithNoMask = cMaskToken + resultNoMaskWithNoMask;
+      }
+    } else if (cValue && !isReverse) {
+      result += cMaskToken;
+      if (cToken.optional || cToken.noMask) {
+        resultNoMaskWithNoMask = cMaskToken + resultNoMaskWithNoMask;
+      }
+    }
+  };
+
+  const nextValue = () => {
+    if (isReverse) {
+      indexValue--;
+    } else {
+      indexValue++;
+    }
+  };
+
+  const nextMask = () => {
+    if (isReverse) {
+      indexMask--;
+    } else {
+      indexMask++;
+    }
+  };
 
   while ($check()) {
-    if (i++ >= 200) throw new Error("Infinit looping Mask");
+
     // Previews tokens
     pMask = $mask[ indexMask - 1 ];
     pToken = { ...$tokens[ pMask ] };
 
     // Current token
-    cMask = $mask[ indexMask ];
-    cToken = { ...$tokens[ cMask ] };
+    cMaskToken = $mask[ indexMask ];
+    cToken = { ...$tokens[ cMaskToken ] };
     cValue = $value[ indexValue ];
 
     isCToken = Object.keys(cToken).length > 0;
@@ -102,12 +135,24 @@ const ODGMask = function (value, mask, options = {
       cToken.nextElement = false;
     }
 
-    noMask = Boolean(cToken.noMask);
+    noMaskToken = Boolean(cToken.noMask);
     isNext = cToken ? cToken.nextElement : false;
+
+    if (isNext) {
+      nextMask();
+      continue;
+    }
+
+    if (noMaskToken) {
+      saveValue();
+      nextMask();
+      if (cValue === cMaskToken) nextValue();
+      continue;
+    }
 
     let valueMatch = false;
 
-    if (cToken.pattern && !isNext && !noMask && cValue) {
+    if (cToken.pattern && cValue) {
       valueMatch = cToken.pattern.test(cValue);
 
       if (valueMatch) {
@@ -116,9 +161,11 @@ const ODGMask = function (value, mask, options = {
         if (isReverse) {
           result = CVALUE_TRANSFORM + result;
           resultNoMask = CVALUE_TRANSFORM + resultNoMask;
+          resultNoMaskWithNoMask = CVALUE_TRANSFORM + resultNoMask;
         } else {
           result += CVALUE_TRANSFORM;
           resultNoMask += CVALUE_TRANSFORM;
+          resultNoMaskWithNoMask += CVALUE_TRANSFORM;
         }
 
         regexMin += cToken.optional ? 0 : 1;
@@ -128,40 +175,25 @@ const ODGMask = function (value, mask, options = {
     } else {
 
       if (
-        (!isCToken && !isNext && !(cValue !== cMask && cToken.optional)) ||
-        (noMask && !isNext) ||
+        (!isCToken && !(cValue !== cMaskToken && cToken.optional)) ||
         !cValue
       ) {
-        regexMin += cToken.optional ? 0 : 1;
-        regexMax += 1;
-        if (cValue && isReverse) {
-          result = cMask + result;
-        } else if (cValue && !isReverse) {
-          result += cMask;
-        }
+        saveValue();
       }
       valueMatch = true;
 
     }
 
     if (
-      (valueMatch && isNext !== true && isCToken && cToken.pattern) ||
+      (valueMatch && isCToken && cToken.pattern) ||
       (cToken.pattern && !cToken.optional) ||
-      (cMask === cValue && (!isCToken || cToken.optional))
+      (cMaskToken === cValue && (!isCToken || cToken.optional))
     ) {
-      if (isReverse) {
-        indexValue--;
-      } else {
-        indexValue++;
-      }
+      nextValue();
     }
 
     if (valueMatch || cToken.optional) {
-      if (isReverse) {
-        indexMask--;
-      } else {
-        indexMask++;
-      }
+      nextMask();
     }
 
   }
@@ -195,18 +227,10 @@ const ODGMask = function (value, mask, options = {
 
   const size = result.length;
 
-  if (this) {
-    this.value = result;
-    this.valid = (indexMask === maskCount || (isReverse && indexMask < 0)) && size >= regexMin && size <= regexMax;
-    this.unmasked = resultNoMask;
-    this.newPosition = position;
-
-    return this;
-  }
-
   return {
     value: result,
     valid: (indexMask === maskCount || (isReverse && indexMask < 0)) && size >= regexMin && size <= regexMax,
+    unmaskedWithTokens: resultNoMaskWithNoMask,
     unmasked: resultNoMask,
     newPosition: position,
   };

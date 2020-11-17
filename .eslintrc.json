@@ -105,7 +105,7 @@
         "no-confusing-arrow": "error",
         "no-console": "error",
         "no-constructor-return": "error",
-        "no-continue": "error",
+        "no-continue": "off",
         "no-div-regex": "error",
         "no-dupe-else-if": "error",
         "no-duplicate-imports": "error",
@@ -309,5 +309,6 @@
         }],
         "quote-props": ["error", "consistent"],
         "quotes": ["error", "double"]
+
     }
 }
