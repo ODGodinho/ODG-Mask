@@ -93,7 +93,7 @@ const ODGMask = function (value, mask, options = {
     } else if (cValue && !isReverse) {
       result += cMaskToken;
       if (cToken.optional || cToken.noMask) {
-        resultNoMaskWithNoMask = cMaskToken + resultNoMaskWithNoMask;
+        resultNoMaskWithNoMask = resultNoMaskWithNoMask + cMaskToken;
       }
     }
   };
